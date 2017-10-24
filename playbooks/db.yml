@@ -1,0 +1,7 @@
+# Provion file for the MariaDB Server
+- hosts: all
+  become: yes
+  roles:
+    - dbserver
+    - webserver
+

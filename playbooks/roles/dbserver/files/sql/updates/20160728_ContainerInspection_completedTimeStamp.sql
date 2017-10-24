@@ -1,0 +1,1 @@
+alter table ContainerInspection add column completedTimeStamp datetime;

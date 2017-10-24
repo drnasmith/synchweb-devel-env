@@ -1,0 +1,3 @@
+# Imclude the two playbooks
+- include: install_mysql.yml
+- include: ispyb_setup.yml

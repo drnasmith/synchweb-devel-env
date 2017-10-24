@@ -1,0 +1,7 @@
+# Provion file for a single LAMP stack with synchweb
+- hosts: lamp
+  become: yes
+  roles:
+    - webserver
+    - dbserver
+

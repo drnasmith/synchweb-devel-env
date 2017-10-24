@@ -1,0 +1,20 @@
+  - name: Install Git
+    package: name=git state=latest
+
+  - name: Checkout Synchweb project
+    git:
+        repo: http://github.com/DiamondLightSource/SynchWeb.git
+        dest: "{{ synchweb_home }}"
+
+  - name: Change ownership to vagrant
+    file:
+        path: "{{ synchweb_home }}"
+        owner: vagrant
+        group: vagrant
+        recurse: yes
+
+  - name: Add Apache Site Config files to system
+    template: src=files/apache2/ispyb2-site.conf.j2 dest=/etc/httpd/conf/ispyb2-site.conf owner=root group=root mode=0600
+
+  - name: Add Apache synchweb directory config to system
+    template: src=files/apache2/ispyb2.conf.j2 dest=/etc/httpd/conf/ispyb2.conf owner=root group=root mode=0600

@@ -1,0 +1,25 @@
+  - name: Install Apache
+    package: name=httpd state=latest
+
+  - name: Start the Apache Web service
+    service: name=httpd state=started enabled=yes
+
+  - name: Install PHP packages
+    package:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - php
+      - php-mysql
+
+  - name: Generate JWT token
+    shell: "head -c 64 /dev/urandom | base64 | tr --delete '\n'"
+    register: jwt
+
+  - name: Test JWT
+    debug:
+      msg: "echo {{jwt.stdout}}"
+
+  - name: Add JWT credentials for php config
+    template: src=config.php.j2 dest=/home/vagrant/config.php owner=vagrant group=root mode=0600
+
