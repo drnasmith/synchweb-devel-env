@@ -13,8 +13,20 @@
         group: vagrant
         recurse: yes
 
+# We need to generate a JWT token for use with synchweb api
+  - name: Generate JWT token
+    shell: "head -c 64 /dev/urandom | base64 | tr --delete '\n'"
+    register: jwt
+
+  - name: Test JWT
+    debug:
+      msg: "echo {{jwt.stdout}}"
+
   - name: Add Apache Site Config files to system
     template: src=files/apache2/ispyb2-site.conf.j2 dest=/etc/httpd/conf/ispyb2-site.conf owner=root group=root mode=0600
 
   - name: Add Apache synchweb directory config to system
     template: src=files/apache2/ispyb2.conf.j2 dest=/etc/httpd/conf/ispyb2.conf owner=root group=root mode=0600
+
+  - name: Update synchweb config.php file
+    template: src=files/SynchWeb/config.php.j2 dest=/share/SynchWeb/api/config.php owner=vagrant group=vagrant mode=0600

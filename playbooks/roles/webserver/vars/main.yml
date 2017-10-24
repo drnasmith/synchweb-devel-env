@@ -1,3 +1,5 @@
+# Variables only required under this role
 synchweb_home: /share/synchweb
+
 
 

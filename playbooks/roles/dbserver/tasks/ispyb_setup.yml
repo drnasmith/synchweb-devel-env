@@ -9,7 +9,7 @@
   
   - name: Setup ISPyB users (needs updating...)
     mysql_user: 
-      name: ispyb_web
+      name: "{{ ispyb_user }}"
       password: "{{ ispyb_password }}"
       state: present
       host: '%'

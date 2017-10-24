@@ -1,2 +1,2 @@
-ispyb_password: integration
+# Variables only required under this role
 mysql_root_password: integration
