@@ -1,1 +1,0 @@
-ALTER TABLE Detector MODIFY detectorSerialNumber varchar(30);

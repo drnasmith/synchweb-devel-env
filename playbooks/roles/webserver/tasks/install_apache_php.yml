@@ -4,11 +4,13 @@
   - name: Start the Apache Web service
     service: name=httpd state=started enabled=yes
 
+# Note we need the native driver version (possibly some other ones too...
   - name: Install PHP packages
     package:
       name: "{{ item }}"
       state: latest
     with_items:
       - php
-      - php-mysql
+      - php-mysqlnd
+
 

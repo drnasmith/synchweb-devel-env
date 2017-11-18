@@ -9,19 +9,13 @@
       gpgcheck: yes
 
   - name: Install MySQL Python for remote configuration
-    yum:
-      name: MySQL-python
-      state: present
+    yum: name=MySQL-python state=present
 
   - name: Install MariaDB Server
-    yum:
-      name: MariaDB-server
-      state: present
+    yum: name=MariaDB-server state=present
 
   - name: Install MariaDB Client
-    yum:
-      name: MariaDB-client
-      state: present
+    yum: name=MariaDB-client state=present
 
   - name: Start the MariaDB service
     service:
@@ -31,10 +25,15 @@
 
 # Think that on install there is no root password set,
 # so we need to change this (at least)
+
+  - name: Change the default root password
+    command: mysqladmin -u root password {{mysql_root_password}}
+
+  - name: Add credentials for root user my.cnf
+    template: src=files/mysql/my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+
   - name: Setup admin users and hosts
     mysql_user: 
-      login_user: root 
-      login_password: "{{ mysql_root_password }}" 
       name: root
       password: "{{ mysql_root_password }}"
       state: present
@@ -43,15 +42,6 @@
       - localhost
       - 127.0.0.1
       - ::1
-
-  - name: Add credentials for root user my.cnf
-    template: src=files/mysql/my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
-
-  - name: Reload Privilege Tables
-    command: 'mysql -ne "{{ item }}"'
-    with_items:
-      - FLUSH PRIVILEGES
-    changed_when: False
 
   - name: Remove anonymous users
     command: 'mysql -ne "{{ item }}"'

@@ -1,1 +1,0 @@
-ALTER TABLE ContainerQueue MODIFY completedTimeStamp timestamp NULL DEFAULT NULL;

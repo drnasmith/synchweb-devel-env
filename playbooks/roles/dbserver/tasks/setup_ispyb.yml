@@ -1,0 +1,40 @@
+# Provision root permissions for the MariaDB Server
+  - name: Remote OLD ISPyB database tables
+    mysql_db:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+      -  pydb
+      -  pyconfig
+
+  - name: Create ISPyB database table
+    mysql_db:
+      name: "{{ ispyb_db_name }}"
+      state: present
+
+  - name: Setup ISPyB admin users
+    mysql_user:
+      name: "{{ispyb_db_user}}"
+      password: "{{ ispyb_db_password }}"
+      state: present
+      host: '%'
+      priv: 'ispyb.*:ALL'
+
+  - name: Reload Privilege Tables
+    command: 'mysql -ne "{{ item }}"'
+    with_items:
+      - FLUSH PRIVILEGES
+    changed_when: False
+
+  - name: Copy the sql schema script across
+    copy: src=files/ispyb-api-schema.sql dest=/tmp
+
+  - name: Import ispyb schema file(s)
+    mysql_db:
+      state: import
+      name: "{{ ispyb_db_name }}"
+      target: "{{ item }}"
+    with_items:
+      - /tmp/ispyb-api-schema.sql
+    ignore_errors: True
+

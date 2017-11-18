@@ -11,14 +11,14 @@
     $mode = 'dev';
 
     # Database credentials, db = hostname/database
-    $isb  = array('user' => {{ispyb_user}}, 'pass' => {{ispyb_password}}, 'db' => 'localhost/ispyb');
+    $isb  = array('user' => '{{ispyb_db_user}}', 'pass' => '{{ispyb_db_password}}', 'db' => 'localhost/{{ispyb_db_name}}');
     $dbtype = 'mysql';
 
 
     # Encoded JWT key, used to sign and check validaty of jwt tokens
     # - Create one of these using /api/authentication/key
     #   This can be changed to invalidate all currently active tokens
-    $jwt_key = {{jwt.stdout}};
+    $jwt_key = '{{jwt.stdout}}';
 
 
     # Auth type
@@ -30,7 +30,7 @@
     $cas_url = 'cas.server.ac.uk';
 
     # Follow CAS SSO
-    $cas_sso = true;
+    $cas_sso = false;
 
     # CAS CA Cert (for SSO)
     $cacert = '/etc/certs/ca-bundle.crt';

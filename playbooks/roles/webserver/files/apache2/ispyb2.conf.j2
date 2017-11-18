@@ -1,28 +1,33 @@
+NameVirtualHost *.80
 
-<Directory "{{ synchweb_home }}">
-    Options +FollowSymLinks
+<VirtualHost *:80>
+	ServerAdmin ispyb2dev@diamond.ac.uk
+	DocumentRoot "{{ synchweb_home }}" 
 
-    Order allow,deny
-    Allow from all
-    RewriteEngine on
-    RewriteRule ^(.*)$ /client/$1 [L]
-</Directory>
+	<Directory "{{ synchweb_home }}">
+	    Options -Indexes +FollowSymLinks
 
-<Directory "{{ synchweb_home }}/api/">
-    DirectoryIndex index.php
+	    DirectoryIndex index.php
+	    RewriteEngine on
+	    RewriteRule ^(.*)$ /client/$1 [L]
+	</Directory>
 
-    RewriteEngine on
-    RewriteCond %{REQUEST_FILENAME} !-f  
-    RewriteCond %{REQUEST_FILENAME} !-d  
-    RewriteRule ^(.*) index.php [L]
-</Directory>
+	<Directory "{{ synchweb_home }}/api/">
+	    DirectoryIndex index.php
 
-<Directory "{{ synchweb_home }}/client/">
-    DirectoryIndex index.php
+	    RewriteEngine on
+	    RewriteCond %{REQUEST_FILENAME} !-f  
+	    RewriteCond %{REQUEST_FILENAME} !-d  
+	    RewriteRule ^(.*) index.php [L]
+	</Directory>
 
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} !index
-    RewriteRule (.*) index.php [L]
-</Directory>
+	<Directory "{{ synchweb_home }}/client/">
+	    DirectoryIndex index.php
+
+	    RewriteEngine On
+	    RewriteCond %{REQUEST_FILENAME} !-f
+	    RewriteCond %{REQUEST_FILENAME} !-d
+	    RewriteCond %{REQUEST_URI} !index
+	    RewriteRule (.*) index.php [L]
+	</Directory>
+</VirtualHost>

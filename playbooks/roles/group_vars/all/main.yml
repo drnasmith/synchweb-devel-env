@@ -1,4 +1,0 @@
-# Variables here are accesible across all roles
-# These are required for the db server and web server (synchweb php)
-ispyb_user: ispyb_web
-ispyb_password: integration
