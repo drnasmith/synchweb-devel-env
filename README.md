@@ -15,13 +15,13 @@ For the web development role synchweb will be checked out to share/
 ## Setup
 * Decide which option you want (multi_machine or standalone)
 * cd into the dir (e.g. synchweb_multi_machine)
-* Sym link the playbooks file, ln -s ../playbooks
 * Run vagrant up
 * This should download the centos box and provision the machine(s)
 * Try using a web browser on http://localhost:8080 to see the Synchweb pages
 
 ## Reprovision
-* If you need to re-run the provisioning (after a change) run sh run-playbook.sh <name of playbook>
+* If you need to re-run the provisioning (after a change) run vagrant up --provision
+* To run specific playbooks, sh run-playbook.sh <name of playbook>
 
 ## Cleanup
 * cd into the dir and run vagrant destroy
