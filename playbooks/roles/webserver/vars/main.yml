@@ -1,5 +1,5 @@
 # Variables only required under this role
-synchweb_home: /share/synchweb
-
-
-
+synchweb_home: /srv/synchweb
+sitename: ispyb.diamond.ac.uk
+#synchweb_repo: https://github.com/DiamondLightSource/SynchWeb.git
+synchweb_repo: https://github.com/drnasmith/SynchWeb.git

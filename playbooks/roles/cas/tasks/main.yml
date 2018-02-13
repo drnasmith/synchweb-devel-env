@@ -1,0 +1,62 @@
+- name: Install JDK 8
+  package: name=java-1.8.0-openjdk-devel state=present
+
+- name: Download Tomcat
+  unarchive:
+      src: http://mirror.ox.ac.uk/sites/rsync.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
+      dest: /opt/
+      owner: vagrant
+      group: vagrant
+      remote_src: yes
+  ignore_errors: yes
+
+- name: Copy JASIG CAS Server project
+  copy:
+    src: files/jasig-cas
+    dest: /home/vagrant
+    owner: vagrant
+    group: vagrant
+
+- name: Copy Example Tomcat server configuration
+  copy:
+    src: files/apache-tomcat
+    dest: /home/vagrant
+    owner: vagrant
+    group: vagrant
+
+- name: Copy Script to generate self-signed key
+  copy:
+    src: files/scripts
+    dest: /home/vagrant
+    owner: vagrant
+    group: vagrant
+
+- name: Install Maven (required to build JASIG CAS)
+  package: name=maven state=present
+
+# This won't rebuild if you have a target cas.war file.
+# If you need to change the credentials, login and rebuild manually
+- name: Build JASIG CAS Server
+  command: mvn package creates=/home/vagrant/jasig-cas/target/cas.war
+  become: yes
+  become_user: vagrant
+  args:
+    chdir: /home/vagrant/jasig-cas
+
+- name: Generate self-signed certificate (testing)
+  command: sh generate_key creates=/home/vagrant/.keystore
+  become: yes
+  become_user: vagrant
+  args:
+    chdir: /home/vagrant/scripts
+    
+- stat:
+    path: /home/vagrant/jasig-cas/target/cas.war
+  register: caswar
+
+- name: Copy target war to apache tomcat
+  copy:
+    src: /home/vagrant/jasig-cas/target/cas.war
+    dest: /opt/{{tomcat_home}}/webapps/
+    remote_src: yes
+  when: caswar.stat.exists

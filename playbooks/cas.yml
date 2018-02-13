@@ -1,0 +1,7 @@
+# Provion file for the MariaDB Server
+- hosts: cas
+  become: yes
+  roles:
+    - cas
+    - nfs
+

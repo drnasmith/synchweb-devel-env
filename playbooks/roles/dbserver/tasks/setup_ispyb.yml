@@ -1,5 +1,5 @@
 # Provision root permissions for the MariaDB Server
-  - name: Remote OLD ISPyB database tables
+  - name: Remove OLD ISPyB database tables
     mysql_db:
       name: "{{ item }}"
       state: absent
@@ -18,7 +18,7 @@
       password: "{{ ispyb_db_password }}"
       state: present
       host: '%'
-      priv: 'ispyb.*:ALL'
+      priv: '{{ ispyb_db_name }}.*:ALL'
 
   - name: Reload Privilege Tables
     command: 'mysql -ne "{{ item }}"'
@@ -37,4 +37,3 @@
     with_items:
       - /tmp/ispyb-api-schema.sql
     ignore_errors: True
-

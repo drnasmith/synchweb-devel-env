@@ -1,0 +1,26 @@
+- name: NFS Server
+  package: name=nfs-utils state=present
+
+- name: Start NFS Server
+  service: name=nfs-server state=started
+
+- name: Setup NFS Exports Directorys
+  file:
+    path: /exports/dls/
+    state: directory
+
+- name: Setup NFS mount points
+  file:
+    path: /exports/dls/{{item}}
+    state: directory
+  with_items:
+    - i01
+    - i02
+    - i03
+    - i04
+
+- name: Copy NFS exports file 
+  file:
+    src: files/exports
+    dest: /etc/exports
+

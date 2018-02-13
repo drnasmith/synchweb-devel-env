@@ -1,6 +1,9 @@
   - name: Install Apache
     package: name=httpd state=latest
 
+  - name: Install Apache SSL 
+    package: name=mod_ssl state=latest
+
   - name: Start the Apache Web service
     service: name=httpd state=started enabled=yes
 
@@ -11,6 +14,7 @@
       state: latest
     with_items:
       - php
+      - php-fpm
       - php-mysqlnd
 
 
