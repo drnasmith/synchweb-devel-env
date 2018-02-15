@@ -1,7 +1,0 @@
-  - name: Check openssl exists
-    package: name=openssl state=latest
-
-  - name: Generate self-signed certificate
-    command: 'openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-	-keyout /etc/pki/tls/private/{{sitename}}.key -out /etc/pki/tls/certs/{{sitename}}.crt \
-	-subj "/C=GB/ST=UK/L=Didcot/O=Diamond/OU=Diamond/CN={{sitename}}"'

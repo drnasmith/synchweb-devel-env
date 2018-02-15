@@ -1,3 +1,15 @@
-- include_tasks: install_apache_php.yml
+- include_tasks: install_packages.centos.yml
+  when: ansible_distribution == "CentOS"
+
+- include_tasks: install_packages.debian.yml
+  when: ansible_distribution == "Debian"
+
+# Tasks that Download/Checkout SynchWeb repository
 - include_tasks: synchweb_development.yml
-- include_tasks: generate_self_signed_certificate.yml
+
+# Setup Apache based on OS
+- include_tasks: setup_apache.debian.yml
+  when: ansible_distribution == "Debian"
+
+- include_tasks: setup_apache.centos.yml
+  when: ansible_distribution == "CentOS"

@@ -1,0 +1,3 @@
+keytool -genkey -alias tomcat -keyalg RSA -validity 365
+keytool -importkeystore -srckeystore /home/vagrant/.keystore -destkeystore /home/vagrant/.keystore -deststoretype pkcs12
+keytool -export -alias tomcat -file server.crt

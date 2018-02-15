@@ -12,11 +12,11 @@ SSLRandomSeed connect builtin
 	SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
 	SSLEngine on
-	SSLCertificateFile /etc/pki/tls/certs/{{sitename}}.crt
-	SSLCertificateKeyFile /etc/pki/tls/private/{{sitename}}.key
+	SSLCertificateFile /etc/ssl/certs/{{sitename}}.crt
+	SSLCertificateKeyFile /etc/ssl/private/{{sitename}}.key
 
 	ServerAdmin ispyb2dev@diamond.ac.uk
-	DocumentRoot "{{ synchweb_home }}" 
+	DocumentRoot "{{ synchweb_home }}"
 
 	<Directory "{{ synchweb_home }}">
 	    Options -Indexes +FollowSymLinks
@@ -32,8 +32,8 @@ SSLRandomSeed connect builtin
 	    DirectoryIndex index.php
 
 	    RewriteEngine on
-	    RewriteCond %{REQUEST_FILENAME} !-f  
-	    RewriteCond %{REQUEST_FILENAME} !-d  
+	    RewriteCond %{REQUEST_FILENAME} !-f
+	    RewriteCond %{REQUEST_FILENAME} !-d
 	    RewriteRule ^(.*) index.php [L]
 	</Directory>
 
