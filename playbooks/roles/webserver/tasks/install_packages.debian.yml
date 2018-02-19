@@ -1,4 +1,4 @@
-# This is the same as install_packages CentOS but with correct package names for Debian/Ubuntu
+# This is the same as install_packages CentOS but with correct package names for Debian/Jessie64
   - name: Install Apache
     package: name=apache2 state=latest
 
@@ -6,17 +6,20 @@
     service: name=apache2 state=started enabled=yes
 
 # Note we need the native driver version (possibly some other ones too...
-# Might need this to be php5... for debian..
+# Might need this to be php5... for debian jessie..
+# For ubuntu need apache plugins..
+
+# From Tim's script we need php-curl, json, cgi
+#      - php5-fpm
+
   - name: Install PHP packages
     package:
       name: "{{ item }}"
       state: latest
     with_items:
-      - php
-      - php-curl
-      - php-json
-      - php-mysql
-      - php-cgi
-      - php-fpm
-      - php-mysqlnd
-      - libapache2-mod-php
+      - php5
+      - php5-curl
+      - php5-json
+      - php5-mysql
+      - php5-cgi
+      - libapache2-mod-php5
