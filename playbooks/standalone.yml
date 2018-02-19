@@ -4,4 +4,5 @@
   roles:
     - cas
     - webserver
+    - nfs
     - dbserver

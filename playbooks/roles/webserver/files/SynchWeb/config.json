@@ -1,11 +1,11 @@
 {
 	"apiurl": "/api",
 
-	"appurl": "",
+	"appurl": "/client",
 
 	"production": false,
 
-	"pucks": { 
+	"pucks": {
 		"i02": 10,
 		"i03": 23,
 		"i04": 37,
@@ -19,6 +19,6 @@
 
 	"maintenance_message": "This is the maintenance message",
 	"maintenance": false,
-	
+
 	"ga_ident": false
 }

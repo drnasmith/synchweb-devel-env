@@ -1,5 +1,11 @@
-- name: Install JDK 8
+- name: Install JDK 8 CentOS
   package: name=java-1.8.0-openjdk-devel state=present
+  when: ansible_distribution == "CentOS"
+
+# Debian version (9 or above jdk 8 needed for apache tomcat 9...)
+- name: Install JDK 8 Ubuntu
+  package: name=openjdk-8-jdk state=present
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - name: Download Tomcat
   unarchive:
@@ -44,12 +50,12 @@
     chdir: /home/vagrant/jasig-cas
 
 - name: Generate self-signed certificate (testing)
-  command: sh generate_key creates=/home/vagrant/.keystore
+  command: sh generate_key.sh creates=/home/vagrant/.keystore
   become: yes
   become_user: vagrant
   args:
     chdir: /home/vagrant/scripts
-    
+
 - stat:
     path: /home/vagrant/jasig-cas/target/cas.war
   register: caswar
@@ -60,3 +66,8 @@
     dest: /opt/{{tomcat_home}}/webapps/
     remote_src: yes
   when: caswar.stat.exists
+
+- name: Tomcat configuration file
+  copy:
+    src: files/apache-tomcat/conf/server.xml
+    dest: /opt/{{tomcat_home}}/conf/

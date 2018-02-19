@@ -7,6 +7,9 @@
         repo: "{{ synchweb_repo }}"
         dest: "{{ synchweb_home }}"
 
+  - name: Copy dependencies across (until composer ready)
+    copy: src=files/SynchWeb/lib.zip dest="{{ synchweb_home}}/api/" owner=vagrant group=vagrant mode=0600
+
   - name: Change ownership to vagrant
     file:
         path: "{{ synchweb_home }}"
@@ -25,3 +28,6 @@
 
   - name: Update synchweb config.php file
     template: src=files/SynchWeb/config.php.j2 dest="{{ synchweb_home}}/api/config.php" owner=vagrant group=vagrant mode=0600
+
+  - name: Update synchweb config.json file
+    template: src=files/SynchWeb/config.json dest="{{ synchweb_home}}/client/js/config.json" owner=vagrant group=vagrant mode=0600

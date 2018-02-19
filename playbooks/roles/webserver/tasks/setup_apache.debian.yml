@@ -4,6 +4,7 @@
   - name: Add Apache synchweb directory ssl config to system
     template: src=files/apache2/ssl.conf.j2 dest=/etc/apache2/sites-available/ssl.conf owner=root group=root mode=0600
 
+# Move this to use the utils a2ensite? (disable by a2dissite)
   - name: Enable SynchWeb sites in Apache config
     file:
       src: /etc/apache2/sites-available/{{item}}
@@ -21,3 +22,14 @@
     command: 'openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 	-keyout /etc/ssl/private/{{sitename}}.key -out /etc/ssl/certs/{{sitename}}.crt \
 	-subj "/C=GB/ST=UK/L=Didcot/O=Diamond/OU=Diamond/CN={{sitename}}"'
+
+# Try to setup apache on debian/ubuntu!
+  - name: Enable apache
+    command: a2enmod {{item}}
+    with_items:
+      - ssl
+      - rewrite
+
+
+  - name: Start the Apache Web service
+    service: name=apache2 state=reloaded enabled=yes
