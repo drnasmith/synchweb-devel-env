@@ -18,6 +18,15 @@
   - name: Copy dependencies across (until php composer ready)
     copy: src=files/SynchWeb/lib.zip dest="{{ synchweb_home}}/api/" owner=vagrant group=vagrant mode=0644
 
+  - name: Copy example DLS file system
+    copy: src=files/SynchWeb/ispyb-dls-dir.tar.gz dest="/home/vagrant" owner=vagrant group=vagrant mode=0644
+
+  - name: Unarchive the DLS archive
+    unarchive:
+      src: "/home/vagrant/ispyb-dls-dir.tar.gz"
+      dest: "/"
+      remote_src: yes
+
   - name: Unarchive the dependencies
     unarchive:
       src: "{{ synchweb_home}}/api/lib.zip"
