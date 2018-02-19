@@ -38,6 +38,5 @@
       - ssl
       - rewrite
 
-
   - name: Start the Apache Web service
     service: name=apache2 state=reloaded enabled=yes

@@ -20,6 +20,6 @@
       - php5
       - php5-curl
       - php5-json
-      - php5-mysql
+      - php5-mysqlnd
       - php5-cgi
       - libapache2-mod-php5
