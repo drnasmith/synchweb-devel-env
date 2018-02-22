@@ -31,3 +31,10 @@ For the web development role synchweb will be checked out to share/
 * We don't have many template files so they are stored under roles/<role>/files
 * Could be moved to separate templates folder at a later date...
 * There are lots of sql files (under roles/dbserver/files) that can be imported into the db - they will need checking to make sure you get what you need. 
+
+## LDAP
+SynchWeb can be configured to talk to an LDAP server.
+An LDAP role is not currently included here.
+However you can get one from here https://github.com/rgl/ldap-vagrant.git 
+Change the SynchWeb config.php settings to talk to the ldap server 192.168.30.xx (see ldap Vagrant box).
+You can add users (e.g. boaty) into the LDAP provision.sh script. Best to do this before bringing the box up.

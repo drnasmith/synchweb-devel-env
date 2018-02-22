@@ -11,7 +11,7 @@
 
 # From Tim's script we need php-curl, json, cgi
 #      - php5-fpm
-
+# Need php5-ldap for ldap authentication (!!)
   - name: Install PHP packages
     package:
       name: "{{ item }}"
@@ -22,4 +22,5 @@
       - php5-json
       - php5-mysqlnd
       - php5-cgi
+      - php5-ldap
       - libapache2-mod-php5
