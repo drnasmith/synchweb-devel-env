@@ -15,6 +15,7 @@
     with_items:
       - php
       - php-fpm
+      - php-ldap
       - php-mysqlnd
 
 
