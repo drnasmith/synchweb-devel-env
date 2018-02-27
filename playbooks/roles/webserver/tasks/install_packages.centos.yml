@@ -14,8 +14,10 @@
       state: latest
     with_items:
       - php
-      - php-fpm
-      - php-ldap
+      - php-curl
+      - php-json
       - php-mysqlnd
+      - php-cgi
+      - php-ldap
 
 

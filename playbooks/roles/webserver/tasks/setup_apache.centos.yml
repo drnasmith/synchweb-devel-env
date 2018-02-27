@@ -1,8 +1,11 @@
 - name: Add Apache synchweb directory config to system
   template: src=files/apache2/ispyb2.conf.j2 dest=/etc/httpd/conf.d/ispyb2.conf owner=root group=root mode=0600
 
-- name: Add Apache synchweb directory ssl config to system
-  template: src=files/apache2/ssl.conf.j2 dest=/etc/httpd/conf.d/ssl.conf owner=root group=root mode=0600
+- name: Add Apache synchweb directory site config to system
+  template: src=files/apache2/ispyb2-site.conf.j2 dest=/etc/httpd/conf.d/ispyb2-site.conf owner=root group=root mode=0600
+
+#- name: Add Apache synchweb directory ssl config to system
+#  template: src=files/apache2/ssl.conf.j2 dest=/etc/httpd/conf.d/ssl.conf owner=root group=root mode=0600
 
 - name: Check openssl exists
   package: name=openssl state=latest
