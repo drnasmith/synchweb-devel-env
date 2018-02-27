@@ -1,6 +1,0 @@
-JASIG CAS project
-
-This is a WAR overlay POM setup.
-
-Once packaged (mvn package) copy the target/cas.war to container.
-For Tomcat copy to ${TOMCAT_HOME}/webapps/

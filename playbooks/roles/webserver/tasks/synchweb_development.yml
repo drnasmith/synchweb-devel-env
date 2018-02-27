@@ -18,15 +18,6 @@
   - name: Copy dependencies across (until php composer ready)
     copy: src=files/SynchWeb/lib.zip dest="{{ synchweb_home}}/api/" owner=vagrant group=vagrant mode=0644
 
-  - name: Copy example DLS file system
-    copy: src=files/SynchWeb/ispyb-dls-dir.tar.gz dest="/home/vagrant" owner=vagrant group=vagrant mode=0644
-
-  - name: Unarchive the DLS archive
-    unarchive:
-      src: "/home/vagrant/ispyb-dls-dir.tar.gz"
-      dest: "/"
-      remote_src: yes
-
   - name: Unarchive the dependencies
     unarchive:
       src: "{{ synchweb_home}}/api/lib.zip"
@@ -57,3 +48,33 @@
 
   - name: Update synchweb config.json file
     template: src=files/SynchWeb/config.json dest="{{ synchweb_home}}/client/js/config.json" owner=vagrant group=vagrant mode=0644
+
+  - name: Mount filesystem
+    mount:
+      name: /dls
+      src: 192.168.33.10:/exports/dls
+      fstype: nfs
+      opts: ro,noauto,user
+      state: mounted
+#
+# If not using NFS there is a simple way to get test data on the system
+# Just copy the ispyb-dls-data archive to this role and unpack directly onto the
+# filesystem - as below...
+#
+#- name: Copy example data to DLS file system
+#  copy: src=files/ispyb-dls-dir.tar.gz dest="/home/vagrant" owner=vagrant group=vagrant mode=0644
+#- name: Unarchive the DLS example data
+#  unarchive:
+#    src: "/home/vagrant/ispyb-dls-dir.tar.gz"
+#    dest: "/exports"
+#    remote_src: yes
+#
+#- name: Change sample data path ownership to vagrant
+#  file:
+#      path: "/exports/dls"
+#      owner: vagrant
+#      group: vagrant
+#      recurse: yes
+# Might also need to put SELinux in permissive mode, selinux: policy=targeted state=permissive
+# Permissive logs  actions that would be blocked.
+# This is required to help access the files on a local installation...
