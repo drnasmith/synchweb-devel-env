@@ -6,14 +6,6 @@
   package: name=nfs-kernel-server state=present
   when: ansible_distribution == "Debian"  or ansible_distribution == "Ubuntu"
 
-- name: Start NFS Server
-  service: name=nfs-server state=started enabled=yes
-  when: ansible_distribution == "CentOS"
-
-- name: Start NFS Server
-  service: name=nfs-kernel-server state=started enabled=yes
-  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
-
 - name: Setup NFS Exports Directorys
   file:
     path: /exports/dls/
@@ -55,3 +47,12 @@
 - selinux:
     policy: targeted
     state: permissive
+
+# Finally start the service - TODO tidy this so it uses var for the server name
+- name: Start NFS Server
+  service: name=nfs-server state=started enabled=yes
+  when: ansible_distribution == "CentOS"
+
+- name: Start NFS Server
+  service: name=nfs-kernel-server state=started enabled=yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
