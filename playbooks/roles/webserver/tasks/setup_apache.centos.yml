@@ -4,12 +4,27 @@
 - name: Add Apache synchweb directory site config to system
   template: src=files/apache2/ispyb2-site.conf.j2 dest=/etc/httpd/conf.d/ispyb2-site.conf owner=root group=root mode=0600
 
+- name: Remove default welcome site
+  file: path=/etc/httpd/conf.d/welcome.conf state=absent
+
 #- name: Add Apache synchweb directory ssl config to system
 #  template: src=files/apache2/ssl.conf.j2 dest=/etc/httpd/conf.d/ssl.conf owner=root group=root mode=0600
+
+- name: Restart Apache
+  service: name=httpd state=restarted
 
 - name: Check openssl exists
   package: name=openssl state=latest
 
+# SE Linux settings
+# First one definately needed, network probably needed for curl, ldap and e-mail depending on what you test
+- name: Configure SE Linux rules
+  command: setsebool -P {{item}} 1
+  with_items:
+    - httpd_can_network_connect_db
+    - httpd_can_network_connect
+    - httpd_can_connect_ldap
+    - httpd_can_sendmail
 # CentOS 7 did not symlink the private directory. It does link the certs dir.
 # We setup this up to provide a simple location for self-signed certificates
 # For production, review these locations so they are consistent.

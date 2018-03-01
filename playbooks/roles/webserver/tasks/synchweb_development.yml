@@ -52,7 +52,7 @@
   - name: Mount filesystem
     mount:
       name: /dls
-      src: 192.168.33.10:/exports/dls
+      src: "{{nfs_host}}:/exports/dls"
       fstype: nfs
       opts: ro,noauto,user
       state: mounted

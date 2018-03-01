@@ -2,4 +2,7 @@
 synchweb_home: /var/www/sites/synchweb
 sitename: ispyb.diamond.ac.uk
 synchweb_repo: https://github.com/DiamondLightSource/SynchWeb.git
-#synchweb_repo: https://github.com/drnasmith/SynchWeb.git
+# NFS host is overridden in multi-machine setup
+nfs_host: localhost
+# db_host is overridden in multi-machine setup
+ispyb_db_host: localhost
