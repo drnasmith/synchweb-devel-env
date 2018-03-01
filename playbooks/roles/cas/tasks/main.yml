@@ -9,7 +9,7 @@
 
 - name: Download Tomcat
   unarchive:
-      src: http://mirror.ox.ac.uk/sites/rsync.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
+      src: http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
       dest: /opt/
       owner: vagrant
       group: vagrant
