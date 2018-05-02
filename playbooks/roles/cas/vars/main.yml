@@ -1,4 +1,4 @@
 # Variables only required under this role
 sitename: cas.diamond.ac.uk
-tomcat_version: 9.0.5
+tomcat_version: 9.0.7
 tomcat_home: apache-tomcat-{{tomcat_version}}
