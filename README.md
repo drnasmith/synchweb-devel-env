@@ -16,7 +16,7 @@ The folders should include a share folder which will be synched to the VM.
 
 ## Setup
 * Decide which option you want (multi_machine or standalone)
-* cd into the dir (e.g. centos_multi_machine)
+* cd into the dir (e.g. centos_standalone)
 * Run vagrant up
 * This should download the centos box and provision the machine(s)
 * Try using a web browser on http://localhost:9080 to see the Synchweb pages
@@ -33,6 +33,7 @@ The folders should include a share folder which will be synched to the VM.
 * We don't have many template files so they are stored under roles/<role>/files
 * Could be moved to separate templates folder at a later date...
 * There are lots of sql files (under roles/dbserver/files) that can be imported into the db - they will need checking to make sure you get what you need.
+* The debian standalone has some issue with the nfs role - it requires a restart for it to mount properly. May be a service order issue, if in doubt try re-provisioning (vagrant up --provision).
 
 ## LDAP
 SynchWeb can be configured to talk to an LDAP server.
