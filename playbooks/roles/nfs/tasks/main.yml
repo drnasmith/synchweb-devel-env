@@ -42,11 +42,18 @@
       group: vagrant
       mode: "o+r"
       recurse: yes
+
+# # Python bindings for selinux required explicitly on debian
+# - name: SE Linux Python bindings
+#   package: name=python-selinux state=present
+#   when: ansible_distribution == "Debian"  or ansible_distribution == "Ubuntu"
+
 # Put SELinux in permissive mode, logging actions that would be blocked.
 # This is required to help access the files on a local installation...
 - selinux:
     policy: targeted
     state: permissive
+  when: ansible_distribution == "CentOS"
 
 # Finally start the service - TODO tidy this so it uses var for the server name
 - name: Start NFS Server
