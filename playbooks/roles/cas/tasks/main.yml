@@ -7,6 +7,9 @@
   package: name=openjdk-8-jdk state=present
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
+- name: Install Maven (required to build CAS Overlay)
+  package: name=maven state=present
+
 - name: Download Tomcat
   unarchive:
       src: http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
@@ -15,13 +18,6 @@
       group: vagrant
       remote_src: yes
   ignore_errors: yes
-
-- name: Copy JASIG CAS Server project
-  copy:
-    src: files/jasig-cas
-    dest: /home/vagrant
-    owner: vagrant
-    group: vagrant
 
 - name: Copy Example Tomcat server configuration
   copy:
@@ -37,18 +33,6 @@
     owner: vagrant
     group: vagrant
 
-- name: Install Maven (required to build JASIG CAS)
-  package: name=maven state=present
-
-# This won't rebuild if you have a target cas.war file.
-# If you need to change the credentials, login and rebuild manually
-- name: Build JASIG CAS Server
-  command: mvn package creates=/home/vagrant/jasig-cas/target/cas.war
-  become: yes
-  become_user: vagrant
-  args:
-    chdir: /home/vagrant/jasig-cas
-
 - name: Generate self-signed certificate (testing)
   command: sh generate_key.sh creates=/home/vagrant/.keystore
   become: yes
@@ -56,18 +40,10 @@
   args:
     chdir: /home/vagrant/scripts
 
-- stat:
-    path: /home/vagrant/jasig-cas/target/cas.war
-  register: caswar
-
-- name: Copy target war to apache tomcat
-  copy:
-    src: /home/vagrant/jasig-cas/target/cas.war
-    dest: /opt/{{tomcat_home}}/webapps/
-    remote_src: yes
-  when: caswar.stat.exists
-
 - name: Tomcat configuration file
   copy:
     src: files/apache-tomcat/conf/server.xml
     dest: /opt/{{tomcat_home}}/conf/
+
+- name: Import Apereo CAS Tasks
+  import_tasks: apereo-cas.yml
