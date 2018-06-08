@@ -10,6 +10,9 @@
 - name: Install Maven (required to build CAS Overlay)
   package: name=maven state=present
 
+- name: Install Git
+  package: name=git state=latest
+
 - name: Download Tomcat
   unarchive:
       src: http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
