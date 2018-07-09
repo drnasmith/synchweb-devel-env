@@ -12,6 +12,8 @@ It can generate:
   db: mariadb server
   cas: nfs and cas authentication.
 
+The test data includes a couple of visits registered to the user:password 'boaty':'mcboatface'
+
 ## Setup
 * Decide which option you want (multi_machine or standalone)
 * cd into the dir (e.g. centos_standalone)
