@@ -12,25 +12,29 @@ It can generate:
   db: mariadb server
   cas: nfs and cas authentication.
 
-The folders should include a share folder which will be synched to the VM.
-
 ## Setup
 * Decide which option you want (multi_machine or standalone)
 * cd into the dir (e.g. centos_standalone)
 * Run vagrant up
 * This should download the centos box and provision the machine(s)
-* Try using a web browser on http://localhost:9080 to see the Synchweb pages
-* The authentication type (dummy, cas) is set in <synchweb>/api/config.php
+* Try using a web browser on http://localhost:9080 or http://192.168.33.10 to see the Synchweb pages
+
+### Authentication
+* Two authentication types are supported: dummy and cas. 
+    * Dummy authentication should be used in the standalone case, CAS works for multi machine.
+    * Before running vagrant up, edit the template file playbooks/roles/webserver/vars/main.yml
+* Some features may require your host being able to resolve the hostname of the boxes (e.g. cas logout will redirect to https://cas/cas/logout) so add an entry in your hosts file to point to 192.168.33.12
+* The CAS auth needs some work. At the moment it relies on a patched source file class.auth-cas.php to explicitly set the CAS certificate. The webserver auth_host variable should match the cas role sitename.
 
 ## Reprovision
-* If you need to re-run the provisioning (after a change) run vagrant provision
+* If you need to re-run the provisioning (after a change) run vagrant provision OR vagrant <boxname> provision for multi-machine
 
 ## Cleanup
 * cd into the dir and run vagrant destroy
 * This should cleanup and delete the vagrant box
 
 ## Notes
-* We don't have many template files so they are stored under roles/<role>/files
+* We don't have many template files so some are stored under roles/<role>/files
 * Could be moved to separate templates folder at a later date...
 * There are lots of sql files (under roles/dbserver/files) that can be imported into the db - they will need checking to make sure you get what you need.
 * The debian standalone has some issue with the nfs role - it requires a restart for it to mount properly. May be a service order issue, if in doubt try re-provisioning (vagrant up --provision).

@@ -23,17 +23,17 @@
 
     # Auth type
     # Can be cas, ldap
-    $authentication_type = 'dummy';
+    $authentication_type = '{{auth_type}}';
 
 
     # CAS url (if using cas, assume https)
-    $cas_url = 'cas.server.ac.uk';
+    $cas_url = '{{cas_host}}';
 
     # Follow CAS SSO
     $cas_sso = false;
 
     # CAS CA Cert (for SSO)
-    $cacert = '/etc/certs/ca-bundle.crt';
+    $cacert = '/etc/certs/{{cas_host}}.crt';
 
 
     # ldap server, used for lookup and authentication (if using)

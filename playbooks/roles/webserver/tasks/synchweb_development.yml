@@ -14,6 +14,7 @@
     git:
         repo: "{{ synchweb_repo }}"
         dest: "{{ synchweb_home }}"
+    ignore_errors: yes
 
   - name: Copy dependencies across (until php composer ready)
     copy: src=files/SynchWeb/lib.zip dest="{{ synchweb_home}}/api/" owner=vagrant group=vagrant mode=0644
@@ -26,6 +27,9 @@
 
   - name: Copy dummy authentication across (until php composer ready)
     copy: src=files/SynchWeb/class.auth-dummy.php dest="{{ synchweb_home}}/api/includes" owner=vagrant group=vagrant mode=0644
+
+  - name: Copy patched CAS authentication across full ssl working...
+    copy: src=files/SynchWeb/class.auth-cas.php dest="{{ synchweb_home}}/api/includes" owner=vagrant group=vagrant mode=0644
 
   - name: Change ownership to vagrant
     file:

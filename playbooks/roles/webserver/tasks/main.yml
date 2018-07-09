@@ -13,3 +13,16 @@
 
 - include_tasks: setup_apache.centos.yml
   when: ansible_distribution == "CentOS"
+
+- name: copy cas cert to webserver
+  copy:
+    src: '../../certs/{{cas_host}}/{{cas_host}}.crt'
+    dest: /etc/certs/
+  ignore_errors: yes
+
+- name: copy hosts file to server
+  copy:
+    src: files/system/etc/hosts
+    dest: /etc/hosts
+
+ 

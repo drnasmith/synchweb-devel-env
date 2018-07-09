@@ -13,40 +13,14 @@
 - name: Install Git
   package: name=git state=latest
 
-- name: Download Tomcat
-  unarchive:
-      src: http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
-      dest: /opt/
-      owner: vagrant
-      group: vagrant
-      remote_src: yes
-  ignore_errors: yes
+- name: Generate Self Signed Certificate
+  import_tasks: generate_self_signed_certificate.yml
 
-- name: Copy Example Tomcat server configuration
-  copy:
-    src: files/apache-tomcat
-    dest: /home/vagrant
-    owner: vagrant
-    group: vagrant
+- name: Install NGINX
+  import_tasks: nginx.yml
 
-- name: Copy Script to generate self-signed key
-  copy:
-    src: files/scripts
-    dest: /home/vagrant
-    owner: vagrant
-    group: vagrant
-
-- name: Generate self-signed certificate (testing)
-  command: sh generate_key.sh creates=/home/vagrant/.keystore
-  become: yes
-  become_user: vagrant
-  args:
-    chdir: /home/vagrant/scripts
-
-- name: Tomcat configuration file
-  copy:
-    src: files/apache-tomcat/conf/server.xml
-    dest: /opt/{{tomcat_home}}/conf/
+- name: Install Apache Tomcat
+  import_tasks: tomcat.yml
 
 - name: Import Apereo CAS Tasks
   import_tasks: apereo-cas.yml

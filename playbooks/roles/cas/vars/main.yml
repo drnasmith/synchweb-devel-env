@@ -1,5 +1,6 @@
 # Variables only required under this role
-sitename: castest.diamond.ac.uk
-tomcat_version: 9.0.7
-tomcat_home: apache-tomcat-{{tomcat_version}}
+sitename: cas
+tomcat_version: 9.0.10
+tomcat_url: https://archive.apache.org/dist/tomcat/tomcat-9
+tomcat_home: /opt/apache-tomcat-{{tomcat_version}}
 cas_home: /home/vagrant/apereo-cas
