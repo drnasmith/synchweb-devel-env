@@ -5,8 +5,10 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
+#
+# Changed base box from centos/7 to geerlingguy to include guest additions for shared folder.
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = "geerlingguy/centos7"
 
   config.vm.define "lamp" do |lamp|
     # accessing "localhost:8080" will access port 80 on the guest machine.
@@ -18,7 +20,7 @@ Vagrant.configure("2") do |config|
     lamp.vm.network "forwarded_port", guest: 8080, host: 8080
     lamp.vm.network "forwarded_port", guest: 8443, host: 8443
 
-    #lamp.vm.synced_folder "share", "/share"
+    lamp.vm.synced_folder "src/", "/var/www/sites/"
 
     lamp.vm.provision "ansible" do |ansible|
       ansible.playbook = "../playbooks/standalone.yml"

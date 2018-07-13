@@ -1,7 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+#
+# Changed base box from centos/7 to geerlingguy to include guest additions for shared folder.
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = "geerlingguy/centos7"
   # As this is a dev setup, don't specify keys per box
   config.ssh.insert_key = false
 
@@ -36,7 +38,7 @@ Vagrant.configure("2") do |config|
     web.vm.network "forwarded_port", guest: 443, host: 9443
     web.vm.network "private_network", ip: "192.168.33.10"
     web.vm.hostname="web"
-    #web.vm.synced_folder "share", "/share"
+    web.vm.synced_folder "src/", "/var/www/sites/"
     web.vm.provision "ansible" do |ansible|
       ansible.playbook = "../playbooks/web.yml"
       ansible.extra_vars = {
