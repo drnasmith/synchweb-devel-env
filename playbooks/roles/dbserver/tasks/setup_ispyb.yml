@@ -29,7 +29,7 @@
   - name: Checkout ispyb-database tables, routines, and sample data
     git:
       repo: https://github.com/DiamondLightSource/ispyb-database
-      dest: /opt/ispyb-database
+      dest: /tmp/ispyb-database
     ignore_errors: False
 
   - name: Import ISPyB tables, routines, and sample data
@@ -38,7 +38,7 @@
       name: "{{ ispyb_db_name }}"
       target: "{{ item }}"
     with_items:
-      - /opt/ispyb-database/schema/tables.sql
-      - /opt/ispyb-database/schema/routines.sql
-      - /opt/ispyb-database/schema/data.sql
+      - /tmp/ispyb-database/schema/tables.sql
+      - /tmp/ispyb-database/schema/routines.sql
+      - /tmp/ispyb-database/schema/data.sql
     ignore_errors: False
