@@ -35,7 +35,7 @@
   - name: Import ISPyB tables, routines, and sample data
     mysql_db:
       state: import
-      name: ispyb
+      name: "{{ ispyb_db_name }}"
       target: "{{ item }}"
     with_items:
       - /opt/ispyb-database/schema/tables.sql
