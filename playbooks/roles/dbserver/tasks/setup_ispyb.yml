@@ -26,6 +26,11 @@
       - FLUSH PRIVILEGES
     changed_when: False
 
+  - name: Make sure git is installed
+    package:
+      name: git
+      state: latest
+
   - name: Checkout ispyb-database tables, routines, and sample data
     git:
       repo: https://github.com/DiamondLightSource/ispyb-database
