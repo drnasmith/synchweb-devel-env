@@ -1,0 +1,23 @@
+# This is a playbook to initialise the environment for flask ispyb admin web app
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install git
+      package: name=git state=latest
+
+    - name: Install virtualenv
+      package: name=python-virtualenv state=latest
+
+    - name: Checkout code
+      git:
+        repo: https://github.com/drnasmith/flask-ispyb-admin
+        dest: /home/vagrant/flask-ispyb-admin
+      become_user: vagrant
+
+    # This task sets up virtualenv for us...
+    - name: Install dependencies
+      pip:
+        requirements: /home/vagrant/flask-ispyb-admin/requirements.txt
+        virtualenv: /home/vagrant/env
+      become_user: vagrant

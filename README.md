@@ -50,3 +50,9 @@ You can add users (e.g. boaty) into the LDAP provision.sh script. Best to do thi
 * There are lots of sql files (under roles/dbserver/files) that can be imported into the db - they will need checking to make sure you get what you need.
 * The debian standalone has some issue with the nfs role - it requires a restart for it to mount properly. May be a service order issue, if in doubt try re-provisioning (vagrant up --provision).
 
+## Web based Admin VM
+* There is also a simple web based admin tool under centos_ispyb_admin/
+* This is a flask tool that pulls code from https://github.com/drnasmith/flask_ispyb_admin
+* To run the admin VM; cd into centos_ispyb_admin and run vagrant up.
+* Its playbook is stored within the centos_ispyb_admin folder
+* Once provisioned, source /home/vagrant/env/bin/activate, export FLASK_APP=app.py, then run: flask run --host 192.168.33.20
