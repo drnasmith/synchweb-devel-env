@@ -10,10 +10,12 @@ It can generate:
 - a multimachine setup:
   web: apache, php and synchweb
   db: mariadb server
-  cas: nfs and cas authentication.
+  cas: nfs and cas authentication (via nginx and tomcat).
 
 The test data includes a couple of visits registered to the user:password 'boaty':'mcboatface'
 
+Note the standalone version is not compatible with CAS because of https port conflicts between nginx and apache
+ 
 ## Setup
 * Install vagrant and ansible 
 * Decide which option you want (multi_machine or standalone)
@@ -21,7 +23,7 @@ The test data includes a couple of visits registered to the user:password 'boaty
 * Run vagrant up
 * This should download the centos box and provision the machine(s)
 * Try using a web browser on http://localhost:9080 or http://192.168.33.10 to see the Synchweb pages
-* The SynchWeb source code should be downloaded to src sub directory (e.g. centos_standalone/src)
+* The SynchWeb source code will be synchronized to src sub directory (e.g. centos_standalone/src)
 
 ### Authentication
 * Two authentication types are supported: dummy and cas. 
