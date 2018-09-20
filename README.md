@@ -8,14 +8,14 @@ It uses Ansible for provisioning.
 It can generate:
 - a standalone machine with apache, php, synchweb and mariadb in one box.
 - a multimachine setup:
-  web: apache, php and synchweb
-  db: mariadb server
-  cas: nfs and cas authentication (via nginx and tomcat).
+  - web: apache, php and synchweb
+  - db: mariadb server
+  - cas: nfs and cas authentication (via nginx and tomcat).
 
 The test data includes a couple of visits registered to the user:password 'boaty':'mcboatface'
 
-Note the standalone version is not compatible with CAS because of https port conflicts between nginx and apache
- 
+Note the standalone version does not include a CAS server because of https port conflicts between nginx and apache
+
 ## Setup
 * Install vagrant and ansible 
 * Decide which option you want (multi_machine or standalone)
