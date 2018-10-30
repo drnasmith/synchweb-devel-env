@@ -17,18 +17,19 @@ The test data includes a couple of visits registered to the user:password 'boaty
 Note the standalone version does not include a CAS server because of https port conflicts between nginx and apache
 
 ## Setup
-* Install vagrant and ansible 
-* Decide which option you want (multi_machine or standalone)
+* Clone this repository
+* Install vagrant, virtualbox and ansible on your host (e.g. apt install ansible vagrant virtualbox-qt)
+* Decide which option you want (multi_machine or standalone). Standalone is simplest to get started.
 * cd into the dir (e.g. centos_standalone)
 * Run vagrant up
-* This should download the centos box and provision the machine(s)
+* This should download the relevant box and provision the machine(s)
 * Try using a web browser on http://localhost:9080 or http://192.168.33.10 to see the Synchweb pages
 * The SynchWeb source code will be synchronized to src sub directory (e.g. centos_standalone/src)
 
 ### Authentication
 * Two authentication types are supported: dummy and cas. 
     * Dummy authentication should be used in the standalone case, CAS works for multi machine.
-    * Before running vagrant up, edit the template file playbooks/roles/webserver/vars/main.yml
+    * To change the authentication type, before running vagrant up, edit the template file playbooks/roles/webserver/vars/main.yml
 * Some features may require your host being able to resolve the hostname of the boxes (e.g. cas logout will redirect to https://cas/cas/logout) so add an entry in your hosts file to point to 192.168.33.12
 * The CAS auth needs some work. At the moment it relies on a patched source file class.auth-cas.php to explicitly set the CAS certificate. The webserver auth_host variable should match the cas role sitename.
 
