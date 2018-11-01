@@ -1,12 +1,4 @@
-# Provision root permissions for the MariaDB Server
-  - name: Remove OLD ISPyB database tables
-    mysql_db:
-      name: "{{ item }}"
-      state: absent
-    with_items:
-      -  pydb
-      -  pyconfig
-
+# Provision ISPyB Database for the MariaDB Server
   - name: Create ISPyB database table
     mysql_db:
       name: "{{ ispyb_db_name }}"
@@ -35,15 +27,17 @@
     git:
       repo: https://github.com/DiamondLightSource/ispyb-database
       dest: /tmp/ispyb-database
+      version: v1.0.0
     ignore_errors: False
 
   - name: Import ISPyB tables, routines, and sample data
     mysql_db:
       state: import
       name: "{{ ispyb_db_name }}"
-      target: "{{ item }}"
+      target: "/tmp/ispyb-database/schema/{{ item }}.sql"
     with_items:
-      - /tmp/ispyb-database/schema/tables.sql
-      - /tmp/ispyb-database/schema/routines.sql
-      - /tmp/ispyb-database/schema/data.sql
+      - tables
+      - lookups
+      - data
+      - routines
     ignore_errors: False
