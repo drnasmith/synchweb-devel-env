@@ -2,7 +2,6 @@
 - hosts: all
   become: yes
   roles:
-#    - cas
     - nfs
     - webserver
     - dbserver

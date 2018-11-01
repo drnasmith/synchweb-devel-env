@@ -4,6 +4,7 @@
 - name: Checkout Apereo CAS Overlay template
   git:
     repo: https://github.com/apereo/cas-overlay-template
+    version: "{{cas_version}}"
     dest: "{{cas_home}}"
   become: yes
   become_user: vagrant

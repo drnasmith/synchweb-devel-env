@@ -8,25 +8,28 @@ It uses Ansible for provisioning.
 It can generate:
 - a standalone machine with apache, php, synchweb and mariadb in one box.
 - a multimachine setup:
-  web: apache, php and synchweb
-  db: mariadb server
-  cas: nfs and cas authentication.
+  - web: apache, php and synchweb
+  - db: mariadb server
+  - cas: nfs and cas authentication (via nginx and tomcat).
 
 The test data includes a couple of visits registered to the user:password 'boaty':'mcboatface'
 
+Note the standalone version does not include a CAS server because of https port conflicts between nginx and apache
+
 ## Setup
-* Install vagrant and ansible 
-* Decide which option you want (multi_machine or standalone)
+* Clone this repository
+* Install vagrant, virtualbox and ansible on your host (e.g. apt install ansible vagrant virtualbox-qt)
+* Decide which option you want (multi_machine or standalone). Standalone is simplest to get started.
 * cd into the dir (e.g. centos_standalone)
 * Run vagrant up
-* This should download the centos box and provision the machine(s)
+* This should download the relevant box and provision the machine(s)
 * Try using a web browser on http://localhost:9080 or http://192.168.33.10 to see the Synchweb pages
-* The SynchWeb source code should be downloaded to src sub directory (e.g. centos_standalone/src)
+* The SynchWeb source code will be synchronized to src sub directory (e.g. centos_standalone/src)
 
 ### Authentication
 * Two authentication types are supported: dummy and cas. 
     * Dummy authentication should be used in the standalone case, CAS works for multi machine.
-    * Before running vagrant up, edit the template file playbooks/roles/webserver/vars/main.yml
+    * To change the authentication type, before running vagrant up, edit the template file playbooks/roles/webserver/vars/main.yml
 * Some features may require your host being able to resolve the hostname of the boxes (e.g. cas logout will redirect to https://cas/cas/logout) so add an entry in your hosts file to point to 192.168.33.12
 * The CAS auth needs some work. At the moment it relies on a patched source file class.auth-cas.php to explicitly set the CAS certificate. The webserver auth_host variable should match the cas role sitename.
 
@@ -50,3 +53,9 @@ You can add users (e.g. boaty) into the LDAP provision.sh script. Best to do thi
 * There are lots of sql files (under roles/dbserver/files) that can be imported into the db - they will need checking to make sure you get what you need.
 * The debian standalone has some issue with the nfs role - it requires a restart for it to mount properly. May be a service order issue, if in doubt try re-provisioning (vagrant up --provision).
 
+## Web based Admin VM
+* There is also a simple web based admin tool under centos_ispyb_admin/
+* This is a flask tool that pulls code from https://github.com/drnasmith/flask_ispyb_admin
+* To run the admin VM; cd into centos_ispyb_admin and run vagrant up.
+* Its playbook is stored within the centos_ispyb_admin folder
+* Once provisioned, source /home/vagrant/env/bin/activate, export FLASK_APP=app.py, then run: flask run --host 192.168.33.20
