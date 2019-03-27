@@ -21,7 +21,7 @@
 
   - name: Unarchive the dependencies
     unarchive:
-      src: "{{ synchweb_home}}/api/lib.zip"
+      src: "{{ synchweb_home}}/api/lib-2018-11-14.zip"
       dest: "{{ synchweb_home}}/api/"
       remote_src: yes
 
