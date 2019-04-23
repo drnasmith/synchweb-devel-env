@@ -25,9 +25,9 @@
 
   - name: Checkout ispyb-database tables, routines, and sample data
     git:
-      repo: https://github.com/DiamondLightSource/ispyb-database
+      repo: "{{ ispyb_db_repo }}"
       dest: /tmp/ispyb-database
-      version: v1.0.0
+      version: "{{ ispyb_db_version }}"
     ignore_errors: False
 
   - name: Import ISPyB tables, routines, and sample data

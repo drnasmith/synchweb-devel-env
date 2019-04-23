@@ -4,3 +4,6 @@
 ispyb_db_name: ispyb
 ispyb_db_user: ispyb
 ispyb_db_password: integration
+# Next variables relate to version of the ispyb db schema
+ispyb_db_repo: https://github.com/DiamondLightSource/ispyb-database
+ispyb_db_version: HEAD
