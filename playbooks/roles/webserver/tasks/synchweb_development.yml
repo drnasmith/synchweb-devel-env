@@ -14,6 +14,7 @@
     git:
         repo: "{{ synchweb_repo }}"
         dest: "{{ synchweb_home }}"
+        version: "{{ synchweb_version }}"
     ignore_errors: yes
 
   - name: Copy dependencies across (until php composer ready)
