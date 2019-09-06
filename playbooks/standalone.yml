@@ -3,5 +3,5 @@
   become: yes
   roles:
     - nfs
-    - webserver
-    - dbserver
+    - synchweb
+    - ispyb_db

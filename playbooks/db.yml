@@ -2,5 +2,5 @@
 - hosts: db
   become: yes
   roles:
-    - dbserver
+    - ispyb_db
 

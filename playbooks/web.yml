@@ -2,4 +2,4 @@
 - hosts: web
   become: yes
   roles:
-    - webserver
+    - synchweb

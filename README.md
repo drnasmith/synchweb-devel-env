@@ -29,9 +29,9 @@ Note the standalone version does not include a CAS server because of https port 
 ### Authentication
 * Two authentication types are supported: dummy and cas. 
     * Dummy authentication should be used in the standalone case, CAS works for multi machine.
-    * To change the authentication type, before running vagrant up, edit the template file playbooks/roles/webserver/vars/main.yml
+    * To change the authentication type, before running vagrant up, edit the template file playbooks/roles/synchweb/vars/main.yml
 * Some features may require your host being able to resolve the hostname of the boxes (e.g. cas logout will redirect to https://cas/cas/logout) so add an entry in your hosts file to point to 192.168.33.12
-* The CAS auth needs some work. At the moment it relies on a patched source file class.auth-cas.php to explicitly set the CAS certificate. The webserver auth_host variable should match the cas role sitename.
+* The CAS auth needs some work. At the moment it relies on a patched source file class.auth-cas.php to explicitly set the CAS certificate. The synchweb auth_host variable should match the cas role sitename.
 
 #### LDAP
 SynchWeb can be configured to talk to an LDAP server.
@@ -50,7 +50,7 @@ You can add users (e.g. boaty) into the LDAP provision.sh script. Best to do thi
 ## Notes
 * We don't have many template files so some are stored under roles/<role>/files
 * Could be moved to separate templates folder at a later date...
-* There are lots of sql files (under roles/dbserver/files) that can be imported into the db - they will need checking to make sure you get what you need.
+* There are lots of sql files (under roles/ispyb_db/files) that can be imported into the db - they will need checking to make sure you get what you need.
 * The debian standalone has some issue with the nfs role - it requires a restart for it to mount properly. May be a service order issue, if in doubt try re-provisioning (vagrant up --provision).
 
 ## Web based Admin VM
