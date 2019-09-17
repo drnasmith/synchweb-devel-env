@@ -10,9 +10,9 @@
     url: https://rpm.nodesource.com/setup_10.x
     dest: /tmp/setup_nodejs
   when: use_webpack.stat is defined
-    
+
 - name: Install nodejs package repo
-  command: sh setup_nodejs 
+  command: sh setup_nodejs
   args:
     chdir: /tmp
   become: true
@@ -27,10 +27,14 @@
 - name: Install webpack dependencies
   npm:
     path: "{{synchweb_home}}/client"
+  become: yes
+  become_user: vagrant
   when: use_webpack.stat is defined
 
-- name: Build client 
+- name: Build client
   command: "npm run build"
   args:
     chdir: "{{synchweb_home}}/client"
+  become: yes
+  become_user: vagrant
   when: use_webpack.stat is defined

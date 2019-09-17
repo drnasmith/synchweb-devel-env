@@ -23,4 +23,5 @@
       - php5-mysqlnd
       - php5-cgi
       - php5-ldap
+      - php5-mbstring
       - libapache2-mod-php5
