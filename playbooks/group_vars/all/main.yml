@@ -4,6 +4,8 @@
 ispyb_db_name: ispyb
 ispyb_db_user: ispyb
 ispyb_db_password: integration
+ispyb_db_port: 3306
+ispyb_db_host: localhost
 # Next variables relate to version of the ispyb db schema
 ispyb_db_repo: https://github.com/DiamondLightSource/ispyb-database
 ispyb_db_version: HEAD
