@@ -16,6 +16,11 @@
         dest: "{{ synchweb_home }}"
         version: "{{ synchweb_version }}"
     ignore_errors: yes
+#
+# New part to build webpack
+#
+  - import_tasks: build_client.yml
+
 
   - name: Copy dependencies across (until php composer ready)
     copy: src=files/SynchWeb/lib-2018-11-14.zip dest="{{ synchweb_home}}/api/" owner=vagrant group=vagrant mode=0644
