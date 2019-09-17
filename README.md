@@ -19,12 +19,12 @@ Note the standalone version does not include a CAS server because of https port 
 ## Setup
 * Clone this repository
 * Install vagrant, virtualbox and ansible on your host (e.g. apt install ansible vagrant virtualbox-qt)
-* Decide which option you want (multi_machine or standalone). Standalone is simplest to get started.
-* cd into the dir (e.g. centos_standalone)
-* Run vagrant up
+* Decide which OS you want centos or debian (centos is recommended and used more often)
+* cd into the dir (e.g. vagrant/centos)
+* Run vagrant up for default Vagrant file "vagrant -f <filename>" for other options
 * This should download the relevant box and provision the machine(s)
 * Try using a web browser on http://localhost:9080 or http://192.168.33.10 to see the Synchweb pages
-* The SynchWeb source code will be synchronized to src sub directory (e.g. centos_standalone/src)
+* The SynchWeb source code will be synchronized to src sub directory (e.g. centos/src)
 
 ### Authentication
 * Two authentication types are supported: dummy and cas. 
@@ -56,6 +56,5 @@ You can add users (e.g. boaty) into the LDAP provision.sh script. Best to do thi
 ## Web based Admin VM
 * There is also a simple web based admin tool under centos_ispyb_admin/
 * This is a flask tool that pulls code from https://github.com/drnasmith/flask_ispyb_admin
-* To run the admin VM; cd into centos_ispyb_admin and run vagrant up.
-* Its playbook is stored within the centos_ispyb_admin folder
-* Once provisioned, source /home/vagrant/env/bin/activate, export FLASK_APP=app.py, then run: flask run --host 192.168.33.20
+* To run the admin VM; follow instructions in the roles/ispyb_admin/README.
+* Once provisioned, vagrant ssh, source /home/vagrant/env/bin/activate, then run: flask run --host 192.168.33.10 (as an example - ip addresses may need to be changed based on your setup)

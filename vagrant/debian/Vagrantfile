@@ -23,8 +23,8 @@ Vagrant.configure("2") do |config|
 
     lamp.vm.synced_folder "src/", "/var/www/sites/"
 
-    lamp.vm.provision "ansible" do |ansible|
-      ansible.playbook = "../playbooks/standalone.yml"
-    end
+#    lamp.vm.provision "ansible" do |ansible|
+#      ansible.playbook = "../playbooks/standalone.yml"
+#    end
   end
 end
