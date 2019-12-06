@@ -19,5 +19,6 @@
       - php-mysqlnd
       - php-cgi
       - php-ldap
+      - php-mbstring
 
 

@@ -6,7 +6,6 @@ synchweb_version: HEAD
 # NFS host is overridden in multi-machine setup
 nfs_host: localhost
 # db_host is overridden in multi-machine setup
-ispyb_db_host: localhost
 cas_host: cas
 # Auth type can by dummy (e.g. standalone) or cas for multi-machine
 auth_type: dummy
